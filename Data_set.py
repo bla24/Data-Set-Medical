@@ -2,13 +2,19 @@
 
 import numpy as np
 import pandas as pd
-from sklearn.datasets import load_breast_cancer
-from sklearn.model_selection import train_test_split
-from sklearn.ensemble import RandomForestClassifier  # Importer Random Forest
-from sklearn.metrics import accuracy_score
-from sklearn.preprocessing import StandardScaler
-from sklearn.decomposition import PCA
+import matplotlib.pyplot as plt
+import seaborn as sns
+import pandas as pd
 import random
+import os
+import openpyxl
+
+from sklearn.base import BaseEstimator, TransformerMixin
+from sklearn.compose import ColumnTransformer
+from sklearn.impute import SimpleImputer
+from sklearn.pipeline import Pipeline
+from sklearn.preprocessing import StandardScaler
+from sklearn.svm import SVC
 
 # Déclaration des variables
 # base contenant les variables suivantes
@@ -17,13 +23,16 @@ import random
 
 noms_variables = ["V1","V2","V3","V4","sexe","degre_rougeur_nez"]
 
-# Chargement du dataset binaire
-# Chargement du dataset binaire
-donnees_data_frame = pd.read_csv('dataset_maladie_40vars.xlsx', delimiter="\t")
-print(donnees_data_frame)
-data = load_breast_cancer()
-X, y = data.data, data.target
+# Nom du fichier Excel à ouvrir
+# Lire le fichier Excel (première feuille par défaut)
+fichier_excel = "dataset_maladie_40vars.xlsx"
+df = pd.read_excel(fichier_excel, engine="openpyxl")
+
+# Afficher les lignes
+print("Aperçu du fichier Excel :")
+print(df.head())
+
 
 # Diviser le dataset en ensembles d'entraînement et de test:
 # 80% de train set et 20% de test set
-X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_state=42)
+#X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_state=42)
